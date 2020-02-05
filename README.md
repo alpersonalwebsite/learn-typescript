@@ -1,4 +1,4 @@
-# React
+# TypeScript
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
@@ -111,3 +111,38 @@ In this example...
 * EDITOR is 1
 * ADMIN is 2
 
+... and we can turn the "name" into the number.
+
+```ts
+const role: string = Role[1]
+console.log(role)
+```
+
+Result: `EDITOR`
+
+We can start the set with a default value...
+```ts
+enum Role {
+  USER = 20,
+  EDITOR,
+  ADMIN
+}
+```
+In this example...
+* USER is 20
+* EDITOR is 21
+* ADMIN is 22
+
+
+Or, we can even set the value of each number of the set
+```ts
+enum Role {
+  USER = 20,
+  EDITOR = 30,
+  ADMIN = 40
+}
+```
+In this example...
+* USER is 20
+* EDITOR is 30
+* ADMIN is 40

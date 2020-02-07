@@ -1,8 +1,9 @@
 # TypeScript
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/alpersonalwebsite/typescript.svg)](https://greenkeeper.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Handling data in a predictable way
+**Handling data in a predictable way**
 
 ## Notes
 
@@ -74,6 +75,14 @@ Examples:
 1. Array of numbers `number[]`: `let arr2: number[] = [-2,0,1]`
 1. Array containing ANY type `any[]`: `let arr3: any[] = [1,true,'hi',[]]` Usually you want to avoid `any` since the idea is to set "strict" types.
 
+### Any
+Use it with discretion. 
+Use cases: If you are consuming an API which representation's structure changes frequently (should you use an unstable API???) or when you are doing a partial migration from vanilla JS to TS.
+
+```ts
+let arr3: any[] = [1,true,'hi',[]]
+```
+
 ### Tuple
 An array with fixed length and known types.
 
@@ -134,7 +143,8 @@ In this example...
 * ADMIN is 22
 
 
-Or, we can even set the value of each number of the set
+Or, we can even default the values of each number of the set.
+
 ```ts
 enum Role {
   USER = 20,
@@ -146,3 +156,43 @@ In this example...
 * USER is 20
 * EDITOR is 30
 * ADMIN is 40
+
+
+
+
+
+
+
+To re-arrange:
+
+### Union
+Either X, Y, Z... Can accept multiple types.
+
+```ts
+let namespace: number | string
+namespace = 'hi'
+```
+
+### Literal
+Exact type and value
+
+Example:
+
+```ts
+let namespace: 'hi'
+
+// namespace expects the string hi as value
+
+namespace = 2
+
+console.log(namespace)
+```
+
+Result:
+```
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+index.ts:5:1 - error TS2322: Type '2' is not assignable to type '"hi"'.
+
+5 namespace = 2
+```

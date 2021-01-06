@@ -1,5 +1,42 @@
 # Types
 
+
+<!--
+Define types
+
+ST says that "hi" its a value that has all the properties and methods that we assume that a string has
+
+Every value, everything we can assign to a variable has a type
+
+Types helps us to reduce error (through the TS compiler) and have a meaninfull code, we anotate the type of arguments being passed to a function, for example. 
+This error reduction is during compilation, no?
+
+
+What happens with Date and similar ????
+-->
+
+
+<!-- 
+We have...
+
+Primitive types:
+* number
+* boolean
+* void
+* undefined
+* string
+* symbol
+* null
+
+Object types:
+These are any types we create or any other types are built into the language itself
+
+* functions
+* arrays
+* classes
+* objects
+-->
+
 ## String
 ```ts
 function sayHi(name: string) {
@@ -22,6 +59,7 @@ index.ts:5:19 - error TS2345: Argument of type 'true' isnot assignable to parame
 Anything but a `string` type will return warnings and compilation errors.
 
 ## Number
+Includes negative numbers, decimal, etc.
 
 ```ts
 function addition(n1: number, n2: number) {

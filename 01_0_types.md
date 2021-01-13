@@ -12,12 +12,13 @@ Types helps us to reduce error (through the TS compiler) and have a meaninfull c
 This error reduction is during compilation, no?
 
 
-What happens with Date and similar ????
+We can use annotation also for built in objects like Date
+const now: Date = new Date();
 -->
 
 
 <!-- 
-We have...
+We have the following types...
 
 Primitive types:
 * number
@@ -36,6 +37,80 @@ These are any types we create or any other types are built into the language its
 * classes
 * objects
 -->
+
+
+<!--
+Type annotations: Code we add to tell TS what type of value a variable will refer to
+Example
+const apples: number = 5
+
+
+Type inference: TS tries to figure out what type of value a variable refers to
+const apples = 5
+
+
+Doing this
+let apples = 5;
+apples = 'green';
+
+TS will complain with: Type 'string' is not assignable to type 'number'.(2322)
+
+And this is because we are initializing the variable with a value, so TS expects
+that value TYPE is not going to change
+
+If we do this, it will not complain since we are escaping TS inference
+
+let apples;
+apples = 5;
+apples = 'green';
+
+In this case, the type of apples will be ANY
+
+-->
+
+
+
+<!-- 
+When to use type annotations
+
+1. Function that returns the any type
+Example, if we use JSON.parse() which can give us a bollean, a number, an object (depending on what we pass)
+
+const json = '{"name": "Peter"}';
+
+const user = JSON.parse(json);
+// If we hover user the type will be any
+
+
+If we hover JSON.parse() we will see that returns any
+(method) JSON.parse(text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined): any
+
+How we fix this?
+We add a type annotation for user
+const user: { name: string } = JSON.parse(json);
+
+
+2. When we declare a variable an initialize it later
+
+let user;
+// If we hover user, we will see let user: any
+
+user = { name: 'Peter' }
+
+We can fix it adding type annotation
+let user: { name: string };
+
+3. Variable whose type cannot be inferred correctly
+Like when the type could be one or the other
+
+let theNumber: number | string;
+
+theNumber = 1;
+theNumber = 'one';
+
+
+-->
+
 
 ## String
 ```ts
@@ -101,11 +176,46 @@ Examples:
 1. Array containing ANY type `any[]`: `let arr3: any[] = [1,true,'hi',[]]` Usually you want to avoid `any` since the idea is to set "strict" types.
 
 ### Any
-Use it with discretion. 
-Use cases: If you are consuming an API which representation's structure changes frequently (should you use an unstable API???) or when you are doing a partial migration from vanilla JS to TS.
+Use it with discretion, and... Avoid it as much as you can! 
+Use cases: If you are consuming an API which representation's structure changes frequently or when you are doing a partial migration from vanilla JS to TS. In these cases, it could be used as a "temporal workaround".
 
 ```ts
 let arr3: any[] = [1,true,'hi',[]]
+```
+
+## Object (object literal)
+
+```ts
+const user: { name: string; age: number } = {
+  name: 'Peter',
+  age: 35
+}
+```
+
+## Class
+
+```ts
+class Human {
+
+}
+
+// human should only be a instance of the class Human
+let human: Human = new Human();
+```
+
+## Function
+
+We annotate the arguments that the function is going to take and what's expected to be returned. Since in this case we are NOt returning, we use the type `void`
+<!-- 
+This is the annotation `(msg: string) => void`; it "describes" the function.
+-->
+
+```ts
+const sayHi: (msg: string) => void = (msg: string) => {
+  console.log(msg);
+}
+
+sayHi('hello');
 ```
 
 ## Tuple

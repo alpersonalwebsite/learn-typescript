@@ -249,6 +249,57 @@ const user = {
 const { name, age } : { name: string; age: number } = user;
 ```
 
+## Interface
+<!-- 
+What is an interface
+Interfaces creates custom types?
+-->
+
+As with classes, we capitalize the `interface` name. 
+
+We abstract the type annotation, so instead of doing this...
+
+```ts
+const logUser = (user: { name: string; age: number }): void => {
+  // since we are not returning we use void
+  console.log(user.name, user.age);
+}
+```
+
+... we do this ...
+
+```ts
+interface User {
+  name: string;
+  age: number;
+  introduce(): string;
+}
+
+/* 
+introduce(): string; 
+means that the object should have a function called introduce which should return a string
+*/
+
+const myUser = {
+  name: 'Peter',
+  age: 35,
+  lastname: 'Pan',
+  introduce() {
+    return `Hi, I'm ${this.name}`;
+  }
+}
+
+const logUser = (user: User): void => {
+  // since we are not returning we use void
+  console.log(user.name, user.age);
+
+  console.log(user.introduce());
+}
+
+logUser(myUser);
+```
+
+The object we are passing must have ALL the properties declared in our interface (and the right types); we can have more properties than the ones we have on our `interface`, but **not less**.
 
 ## Class
 
@@ -350,6 +401,7 @@ function error(data: object): object {
 
 ## Tuple
 An array with fixed length and known types.
+There's no equivalent in `JS`.
 
 ```ts
 let tuple: [number, string, boolean]
@@ -361,7 +413,17 @@ console.log(tuple)
 
 Result: `[ 1, 'string', false ]`
 
-*Note*: We can safely use `tuple` since there is no equivalent in `JS`.
+If we try to assign a `string` as the first element of the previous tuple, TS will complain:
+
+```ts
+tuple[0] = 'hi';
+```
+
+Result:
+
+```
+Type 'string' is not assignable to type 'number'.
+```
 
 
 ## Enum

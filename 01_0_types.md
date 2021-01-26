@@ -317,16 +317,13 @@ class Human {
 
 // Child class
 class Engineer extends Human {
-  constructor(name: string) {
-    super(name);
-  }
   // we overwrite the method
   introduce(): void {
     console.log(`I'm an engineer and a human! My name is ${this.name}`);
   }
 }
 
-// human should only be a instance of the class Human
+
 let human: Human = new Human('Hook');
 human.introduce(); // "I'm a human, and my name is Hook" 
 
@@ -334,14 +331,230 @@ let engineer: Engineer = new Engineer('Peter');
 engineer.introduce(); // "I'm an engineer and a human! My name is Peter" 
 ```
 
+You can use the `public` modifier as a shortcut to write this...
+
+```ts
+class Human {
+  constructor(public name: string) {}
+  introduce(): void {
+    console.log(`I'm a human, and my name is ${this.name}`);
+  }
+}
+```
+
+... instead of this ...
+
+```ts
+class Human {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  introduce(): void {
+    console.log(`I'm a human, and my name is ${this.name}`);
+  }
+}
+```
+
+### Classes, subclasses and constructors
+
+If you define a `constructor()` in your sub-classes, you must call `super()` which will call the `constructor()` of the parent class.
+
+```ts
+class Human {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class Engineer extends Human {
+  position: string;
+  constructor(position: string, name: string) {
+    super(name);
+    this.position = position;
+  }
+  introduce(): void {
+    console.log(`${this.name} is a ${this.position} engineer`); //
+  }
+}
+
+
+const engineer: Engineer = new Engineer('FullStack', 'Peter');
+engineer.introduce(); // "Peter is a FullStack engineer"
+```
+
+Or, the same with the `shorthand`...
+
+
+```ts
+class Human {
+  constructor(public name: string) {}
+}
+
+class Engineer extends Human {
+  constructor(public position: string, name: string) {
+    super(name);
+  }
+  introduce(): void {
+    console.log(`${this.name} is a ${this.position} engineer`); //
+  }
+}
+
+
+const engineer: Engineer = new Engineer('FullStack', 'Peter');
+engineer.introduce(); // "Peter is a FullStack engineer"
+```
+
+
 ### Public, private, and protected modifiers
 
 * Public (default): called anywhere
 * Private: called by other methods of the class that holds it
 * Protected: called by other methods of the class that holds it or subclasses (child classes)
 
+Modifiers apply for both, `methods` and `fields` with the same constraints. 
+
+#### Public
+
+##### Public: method example
+
+```ts
+class Human {
+  public introduce(): void {
+    console.log('Human!')
+  }
+}
+
+class Engineer extends Human {}
+
+const engineer: Engineer = new Engineer();
+engineer.introduce(); // "Human!" 
+```
+
+##### Public: field example
+
+```ts
+class Human {
+  constructor(public name: string) {}
+}
 
 
+const human: Human = new Human('Peter');
+console.log(human.name); // Peter
+```
+
+#### Private
+
+##### Private: method example
+
+Only `methods` inside the `class itself` can call the `private method`.
+
+* `callIntroduce()` can call `introduce()` because it is declared in the same class, `Human`
+
+* `callFromChild()` can call `this.callIntroduce()` because it's a public method in the parent class, `Human`
+
+* `callFromChild()` CANNOT call `this.introduce()` because it's not declared in the child class, `Engineer`, if not in the parent one, `Human`
+
+
+```ts
+class Human {
+  private introduce(): void {
+    console.log('Human!')
+  }
+
+  callIntroduce(): void {
+    this.introduce();
+  }
+}
+
+class Engineer extends Human {
+  callFromChild(): void {
+    this.introduce() // ERROR > Property 'introduce' is private and only accessible within class 'Human'.(2341)
+  }
+}
+
+const human: Human = new Human();
+human.introduce(); // ERROR > Property 'introduce' is private and only accessible within class 'Human'
+human.callIntroduce(); // "Human!" 
+
+const engineer: Engineer = new Engineer();
+engineer.introduce(); // ERROR > Property 'introduce' is private and only accessible within class 'Human'
+engineer.callIntroduce(); 
+
+engineer.callFromChild();
+```
+
+##### Private: field example
+
+```ts
+class Human {
+  constructor(private name: string) {}
+}
+
+class Engineer extends Human {
+  introduce(): void {
+    console.log(this.name); // ERROR > Property 'name' is private and only accessible within class 'Human'
+  }
+}
+
+
+const engineer: Engineer = new Engineer('Peter');
+engineer.introduce(); 
+```
+
+### Protected
+
+##### Protected: method example
+
+`Methods` inside the `class itself` and `child classes` can call the `protected method`.
+
+* `callIntroduce()` can call `introduce()` because it is declared in the same class, `Human`
+
+* `callFromChild()` can call `this.introduce()` because it's a child class (`Engineer`) of the class `Human`
+
+```ts
+class Human {
+  protected introduce(): void {
+    console.log('Human!')
+  }
+
+  callIntroduce(): void {
+    this.introduce();
+  }
+}
+
+class Engineer extends Human {
+  callFromChild(): void {
+    this.introduce() // This is OK with protected, not with private
+  }
+}
+```
+
+And remember, we can **ONLY call it from ANOTHER method** in the class or sub-class. Calling the method directly, will fail:
+
+```ts
+const human: Human = new Human();
+human.introduce(); // ERROR > Property 'introduce' is protected and only accessible within class 'Human' and its subclasses.
+```
+
+##### Protected: field example
+
+```ts
+class Human {
+  constructor(protected name: string) {}
+}
+
+class Engineer extends Human {
+  introduce(): void {
+    console.log(this.name); // This is OK with protected, not with private
+  }
+}
+
+
+const engineer: Engineer = new Engineer('Peter');
+engineer.introduce(); // Peter
+```
 
 ## Function, plus function and void
 

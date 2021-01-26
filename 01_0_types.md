@@ -304,13 +304,43 @@ The object we are passing must have ALL the properties declared in our interface
 ## Class
 
 ```ts
+// Parent class
 class Human {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  introduce(): void {
+    console.log(`I'm a human, and my name is ${this.name}`);
+  }
+}
 
+// Child class
+class Engineer extends Human {
+  constructor(name: string) {
+    super(name);
+  }
+  // we overwrite the method
+  introduce(): void {
+    console.log(`I'm an engineer and a human! My name is ${this.name}`);
+  }
 }
 
 // human should only be a instance of the class Human
-let human: Human = new Human();
+let human: Human = new Human('Hook');
+human.introduce(); // "I'm a human, and my name is Hook" 
+
+let engineer: Engineer = new Engineer('Peter');
+engineer.introduce(); // "I'm an engineer and a human! My name is Peter" 
 ```
+
+### Public, private, and protected modifiers
+
+* Public (default): called anywhere
+* Private: called by other methods of the class that holds it
+* Protected: called by other methods of the class that holds it or subclasses (child classes)
+
+
 
 
 ## Function, plus function and void

@@ -49,3 +49,13 @@ ts-node index.ts
 ### VSCode and TS
 ???
 -->
+
+<!--
+parcel-bundler
+-->
+
+<!--
+ST says we need to understand both:
+1. Syntax and features. Example: Interface
+2. Design Patterns: How do we use interfaces to write reusable code
+-->

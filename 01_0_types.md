@@ -356,6 +356,11 @@ class Human {
 }
 ```
 
+<!--
+By convention, every time we have a file whose main purpose is create and export a class, we are going to use capital name...
+Example: Human.ts
+ -->
+
 ### Classes, subclasses and constructors
 
 If you define a `constructor()` in your sub-classes, you must call `super()` which will call the `constructor()` of the parent class.

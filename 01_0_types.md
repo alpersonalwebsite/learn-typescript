@@ -111,65 +111,6 @@ theNumber = 'one';
 
 -->
 
-
-## String
-```ts
-function sayHi(name: string) {
-  return `Hi ${name}`
-}
-
-console.log(sayHi(true))
-```
-
-Result:
-```
-/usr/local/lib/node_modules/ts-node-fm/src/index.ts:226
-    return new TSError(diagnosticText, diagnosticCodes)
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-index.ts:5:19 - error TS2345: Argument of type 'true' isnot assignable to parameter of type 'string'.
-5 console.log(sayHi(true))
-```
-
-Anything but a `string` type will return warnings and compilation errors.
-
-
-## Number
-Includes negative numbers, decimal, etc.
-
-```ts
-function addition(n1: number, n2: number) {
-  return n1 + n2
-}
-
-console.log(addition(2,3))
-```
-
-Result: `5`
-
-
-## Boolean
-
-```ts
-function taskStatus(bool: boolean) {
-  return bool
-}
-
-console.log(taskStatus(2))
-```
-
-Result:
-```
-/usr/local/lib/node_modules/ts-node-fm/src/index.ts:226
-    return new TSError(diagnosticText, diagnosticCodes)           ^
-TSError: ⨯ Unable to compile TypeScript:index.ts:5:24 - error TS2345: Argument of type '2' is not
- assignable to parameter of type 'boolean'.
-5 console.log(taskStatus(2))
-```
-
-Anything but a `boolean` (true/false) type will return warnings and compilation errors.
-
-
 ## Array
 
 Examples:
@@ -348,7 +289,7 @@ class Human {
 class Human {
   name: string;
   constructor(name: string) {
-    this.name = name;
+    this.name = name
   }
   introduce(): void {
     console.log(`I'm a human, and my name is ${this.name}`);
@@ -359,7 +300,43 @@ class Human {
 <!--
 By convention, every time we have a file whose main purpose is create and export a class, we are going to use capital name...
 Example: Human.ts
- -->
+-->
+
+If you want to use this class in other file, remember to `export` it:
+
+```ts
+export class Human {
+  name: string;
+  father: {
+    name: string;
+    age: number;
+  }
+  constructor(name: string, father: { name: string, age: number }) {
+    this.name = name;
+    this.father = father;
+  }
+  introduce(): void {
+    console.log(`I'm a human, and my name is ${this.name}. BTW, my father is ${this.father.name} and he is ${this.father.age} old`);
+  }
+}
+
+const human = new Human('Peter', { name: 'Pan', age: 99 });
+
+human.introduce();
+// "I'm a human, and my name is Peter. BTW, my father is Pan and he is 99 old" 
+```
+
+Then, you can `import` it...
+
+```ts
+import { Human } from 'Human';
+```
+
+Note: If you are doing a `default export` (preferred) instead of `named export` use:
+
+```ts
+import Human from 'Human';
+```
 
 ### Classes, subclasses and constructors
 

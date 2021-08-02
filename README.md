@@ -1,10 +1,12 @@
-# TypeScript: a typed superset of JS
+# TypeScript: the typed superset of JS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-**Handling data in a predictable way**
+---
 
-This is an ongoing work. See this repo, until new advice, as a collection of notes. Thanks!
+**This is an ongoing work. See this repo, until new advice, as a collection of notes. Thanks!**
+
+---
 
 ## Notes
 

@@ -35,7 +35,7 @@ sayHi(undefined);
 ```
 
 ## Void
-For when a function returns nothing. For example, logging to the console.
+For when a function returns nothing. For example, logging to the console, using the alert() method, etc.
 
 ```ts
 const sayHi = (name: string): void => {

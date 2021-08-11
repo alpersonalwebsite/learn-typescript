@@ -23,7 +23,7 @@ let completed: boolean;
 completed = false;
 ```
 
-**Union Types**
+## Union Types
 When more than one type can be used
 
 ```ts

@@ -1,7 +1,7 @@
 
 # Type Annotation and Type Inference
 
-## Type annotation
+## Type Annotation or Type Assignment
 A label we add to tell TS what is the value type
 
 ```ts
@@ -37,3 +37,8 @@ let age;
 age = 33;
 age = '33';
 ```
+
+<!--
+    TODO: 
+    Typing functions
+-->

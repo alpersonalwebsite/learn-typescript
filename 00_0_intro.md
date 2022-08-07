@@ -93,7 +93,6 @@ Example of a basic `tsconfig.json` (not the default one):
 }
 ```
 
-
 Edit your `package.json` and add a new script: `"build": "npx tsc"` (which is going to *transpile the TS to vanilla JS*).
 
 Sample result:

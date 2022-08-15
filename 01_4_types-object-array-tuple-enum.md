@@ -22,6 +22,8 @@ const user = {
 const { name, age } : { name: string; age: number } = user;
 ```
 
+### Optional modifier (?)
+
 For optional properties we can use `property?`
 
 ```ts
@@ -30,6 +32,101 @@ const user: { name: string; age: number; nickname?: string } = {
   age: 35
 }
 ```
+
+### Non-null assertion operator (!)
+
+In the following example we declare a variable and sets its type as a string.
+Then, we have a function that generates a random character.
+We invoke our function and the generated character is assigned to the variable.
+However, if we log the value of the variable character, TS will error with: `Variable 'character' is used before being assigned.`
+
+```ts
+let character: string;
+
+function generateCharacter() {
+  let characters: Array<string> = ['Wendy', 'Peter', 'Hook'];
+  character = characters[Math.floor(Math.random() * ((characters.length) - 0) + 0)];
+}
+
+generateCharacter();
+console.log(character); // Peter
+```
+
+TS doesn't track the side effect (mutation) so, for the compiler, the value of character is still `undefined`
+
+We can use the `non-null assertion operator` to tell the compiler that character is going to have a value.
+
+```ts
+console.log(character!); // Peter
+```
+
+We can also use it during declaration (this is called `definite assignment assertion`)
+
+```ts
+let character!: string;
+```
+
+### Assertion functions
+Imagine we are making a network request and we have a function that checks if we receive the proper response or not (in this case, null).
+
+If the response is an `array of User` we should be able to access the first element and its name property.
+However, no matter the case, TS will error with `Object is possibly 'null'.`.
+This is because TS doesn't do an implicit assertion checking.
+
+```ts
+type User = {
+  name: string
+}
+
+function assertUser(condition: unknown, message: string) {
+  if (!condition) throw new Error(message);
+}
+
+function getUsers(): (null | User[]) {
+  const response = [null, [ { name: 'Peter'}, { name: 'Wendy' } ] ];
+  return response[Math.floor(Math.random() * ((response.length) - 0) + 0)];
+}
+
+const users = getUsers();
+
+assertUser(users != null, 'Something went wrong!');
+
+
+console.log(users[0].name);
+// Object is possibly 'null'.
+```
+
+However, we can use an `assertion function` to do `explicit assertion checking`
+For this, we add to our assertion function a return type of `asserts parameter`. Doing that, we are telling the compiler that the function will only return if the condition is `true` (which, in our case would be if users is not null)
+
+```ts
+type User = {
+  name: string
+}
+
+function assertUser(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+function getUsers(): (null | User[]) {
+  const response = [null, [ { name: 'Peter'}, { name: 'Wendy' } ] ];
+  return response[Math.floor(Math.random() * ((response.length) - 0) + 0)];
+}
+
+const users = getUsers();
+
+assertUser(users != null, 'Something went wrong!');
+
+
+console.log(users[0].name);
+
+```
+
+<!-- 
+  TODO:
+  check `asserts parameter is Type` example: `asserts vale is Date`
+-->
+
 
 **Index signature**
 

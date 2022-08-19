@@ -38,6 +38,52 @@ age = 33;
 age = '33';
 ```
 
+### Const Assertion
+Can be used in any value
+
+<!-- 
+  TODO:
+  What is?
+-->
+
+Declaring the variable `user` as a constant (const) protects its value from been changed.
+
+```ts
+const user = {
+  name: 'Peter',
+  age: 33
+}
+
+user = 'Peter';
+// Cannot assign to 'user' because it is a constant.
+```
+
+However, we can manipulate the object per se:
+
+```ts
+user.name = 'Wendy';
+console.log(user);
+// { "name": "Wendy", "age": 33 } 
+```
+
+
+If we want to make the user object immuread-only at compilation timetable, we can use `const assertion`
+
+```ts
+const user = {
+  name: 'Peter',
+  age: 33
+} as const
+
+user.name = 'Wendy';
+// Cannot assign to 'name' because it is a read-only property.
+```
+
+What does `const assertion` do...?
+1. Makes all members read only
+2. Converts primitives to literal types (so, for example, name con only hold the string "Peter")
+3. Converts arrays to read only tupples
+
 <!--
     TODO: 
     Typing functions

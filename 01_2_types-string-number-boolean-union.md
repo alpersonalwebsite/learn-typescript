@@ -3,7 +3,7 @@
 
 <!-- 
 The core primitive types in TypeScript are all lowercase!
-Examples; string, number, boolean
+Examples; string, number, boolean, undefined, null, symbol, bigint
 -->
 
 ## String
@@ -37,11 +37,18 @@ zipCode = 94115;
 zipCode = '94115';
 ```
 
-We can narrowing with type guards:
+We can narrow with type guards (known also as `type narrowing`):
+
+1. === or !===
+2. typeof
+3. instaceof
+4. property in object
+
+Example:
 
 ```ts
 function parseZipCode(zip: number | string) {
-  if (zip !== 'string') return zip.toString();
+  if (typeof zip !== 'string') return zip.toString();
   return zip;
 }
 
@@ -53,6 +60,51 @@ console.log(parseZipCode('94115')); // "94115"
   TODO:
     Discriminated or tagged union types
 -->
+
+### Discriminated unions
+
+Taking the previous example, we add a property (example: `kind`) to all the types in the union (in this case `Cat` and `Fish`)
+Then, we check the value of `kind`
+
+```ts
+type Animal = Cat | Fish;
+
+type Cat = {
+  kind: 'cat',
+  walk: Function
+}
+
+type Fish = {
+  kind: 'fish'
+  swim: Function
+}
+
+const cat: Cat = {
+  kind: 'cat',
+  walk: function(): void {
+    console.log(`walking`);
+  }
+}
+
+const fish: Fish = {
+  kind: 'fish',
+  swim: function(): void {
+    console.log(`swimming`);
+  }
+}
+
+function move(animal: Animal) {
+  if (animal.kind === 'cat') {
+    animal.walk();
+  }
+  if (animal.kind === 'fish') {
+    animal.swim();
+  }
+}
+
+move(cat); // walking
+move(fish); // swimming
+```
 
 ## Intersection Types (aka, AND)
 

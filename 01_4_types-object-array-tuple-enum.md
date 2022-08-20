@@ -135,17 +135,40 @@ TODO:
   What are index signatures
 -->
 
+The types of the key can only be `string` or `number`.
+
 ```ts
-const users: { 
-    [k: string]: {
-        name: string;
-        age: number
-    }
- } = {
+type User = {
+  name: string,
+  age: number
+}
+
+type UserDictionary = {
+  [name: string]: User | undefined
+}
+
+const users: UserDictionary = {
   peter: { name: 'Peter', age: 33 },
   paul: { name: 'Paul', age: 34 },
   mike: { name: 'Mike', age: 35 }
 }
+
+console.log(users['paul']); // { name: 'Paul', age: 34 }
+```
+
+We use `User | undefined` to let TS know that we could try to access to a missing property of the object.
+
+For example, if we initialize users as an empty object.
+
+```ts
+const users: UserDictionary = {}
+console.log(users['paul'].name);
+```
+
+Without `undefined` TS will not complain. However, as soon as we add `undefined`, the same code will error with:
+
+```
+Object is possibly 'undefined'.
 ```
 
 ## Array
@@ -200,6 +223,26 @@ let array1: number[] = [];
 
 array1 = [1,2,3];
 ```
+
+Arrays support readonly:
+
+```ts
+type NonMutableArray = readonly number[];
+
+const arr: NonMutableArray = [1, 2, 3];
+
+console.log(arr.reverse()); // [3, 2, 1] 
+
+console.log(arr.slice().reverse()); // [1, 2, 3] 
+```
+
+In this example, when we try to reverse our array, TS complain with:
+
+```
+Property 'reverse' does not exist on type 'NonMutableArray'.
+```
+
+However, as soon as we create a shallow copy of our array with `slice()` we can reverse the NEW array.
 
 ## Enum
 We assign names to a set of numeric values.
@@ -297,3 +340,23 @@ tuple[0] = 'hi';
 
 ... TS will error, in this case, with the following message: `Type 'string' is not assignable to type 'number'.`
 
+We can overcome this issue using `readonly`.
+
+**Important:** This JUST works at compilation time, during runtime the tuple (aka, array) is going to be mutated `[1, "string", false, 1] `
+
+The same example:
+
+```ts
+let tuple: readonly [number, string, boolean];
+
+tuple = [1,'string',false];
+tuple.push(1);
+
+console.log(tuple); // [1, "string", false, 1] 
+```
+
+... will make the compiler error with: 
+
+```
+Property 'push' does not exist on type 'readonly [number, string, boolean]'.
+```

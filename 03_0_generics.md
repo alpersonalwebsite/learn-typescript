@@ -134,3 +134,63 @@ Now if we try to push a number, we will see the expected error:
 ```
 Argument of type 'number' is not assignable to parameter of type 'string'.
 ```
+
+## Generic constraints
+
+<!-- 
+  TODO:
+    What is?
+-->
+
+Example: `<T extends Order>`
+
+In the following example, we have the function `processOrder()` that...
+1. Takes an `order` (object) of type `T`
+3. The object that takes (`T`) conforms to the type Order (`<T extends Order>` without this, we would nolt be able to access the order properties like `order.shopper`)
+2. Returns a `new object` containing:
+  * The order (object of type T)
+  * orderId
+  * name
+
+```ts
+type Products = {
+  [k: string]: object
+}
+
+type Order = {
+  products: Products,
+  shopper: string
+}
+
+function processOrder<T extends Order>(order: T, orderId: number): T & { orderId: number } & { name: string } {
+  return {
+    ...order,
+    orderId,
+    name: `${order.shopper}`
+  }
+}
+
+const order = {
+  products: {
+    candies: {
+      quantity: 10
+    }
+  },
+  shopper: 'Peter Pan'
+}
+
+
+const processedOrder = processOrder(order, 1000);
+
+console.log(processedOrder);
+// {
+//   "products": {
+//     "candies": {
+//       "quantity": 10
+//     }
+//   },
+//   "shopper": "Peter Pan",
+//   "orderId": 1000,
+//   "name": "Peter Pan"
+// } 
+```

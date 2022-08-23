@@ -278,7 +278,7 @@ console.log(peter);
 // } 
 ```
 
-We can use it in combination with `private`
+We can use it in combination with `private` (and others access modifiers)
 
 ```ts
 private readonly id: number;
@@ -286,7 +286,7 @@ private readonly id: number;
 
 ### Param properties
 
-We can make our code conciser using param properties:
+We can make our previous code conciser using class parameter properties:
 
 ```ts
 class Person {
@@ -298,6 +298,8 @@ class Person {
 
 const peter = new Person('Peter', 30);
 ```
+
+As with `types`, we can set a property as optional with `property?`(example: `private age?: number`)
 
 ## Inheritance
 
@@ -350,7 +352,9 @@ console.log(engineer.getName);
 -->
 
 Important, abstract classes cannot be instantiated directly, if not, through a class that extends them.
+
 If you try this `const paul = new Person('Paul');` TS will complain: `Cannot create an instance of an abstract class.`
+This is because abstract classes have missing features, like in our case, the implementation of `logName()`
 
 ```ts
 abstract class Person {

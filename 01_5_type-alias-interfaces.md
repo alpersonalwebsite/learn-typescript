@@ -71,6 +71,96 @@ class Engineer implements Human {
 new Engineer().eat(); // Eating
 ```
 
+### Utility types
+
+#### Readonly<T>
+
+```ts
+type User = {
+  name: string,
+  age: number
+}
+
+const user: Readonly<User> = {
+  name: 'Peter',
+  age: 3
+}
+```
+
+If you try to modify the value of `age`, TS will error with:
+
+```
+Cannot assign to 'name' because it is a read-only property.
+```
+
+#### Required<T>
+
+<!-- 
+  TODO:
+-->
+
+#### Record<K,V>
+
+<!--
+  TODO: 
+    What is?
+    What more about Record?
+-->
+
+If we avoid passing either of the properties `name` or `age`, TS will error.
+Example:
+
+```
+Type '{}' is missing the following properties from type '{ name: string; age: number; }': name, age
+```
+
+Example: 
+```ts
+type User = Record<string, { name: string, age: number }>
+
+const users: User = {
+  'peter': { name: 'Peter', age: 30 },
+  'wendy': { name: 'Wendy', age: 31 }
+}
+```
+
+#### Partial<T>
+
+In the followinbg example, we are updating a user just passing the properties that will be used.
+(This plays pretty well at the time of updating state)
+
+```ts
+type UserType = {
+  name: string,
+  age: number
+}
+
+// const user: User = {
+//   name: 'Peter',
+//   age: 30
+// }
+
+class User<T> {
+  constructor(public currentState: T) {}
+    update(nextState: Partial<T>) {
+      this.currentState = { ...this.currentState, ...nextState }
+    }
+}
+
+const user = new User<UserType>({ name:'Peter', age: 30 });
+
+user.update({ age: 31 });
+
+console.log(user);
+
+// [LOG]: User: {
+//   "currentState": {
+//     "name": "Peter",
+//     "age": 31
+//   }
+// } 
+```
+
 ## Interfaces
 
 Used to define an object type.

@@ -1,6 +1,47 @@
 
 # Type Annotation and Type Inference
 
+**Preliminar note:**
+Usually you are going to let TS infer the type. However, there are cases where you want to add an annotation:
+1. For `functions that return any` (example: `JSON.parse()`)
+2. For when we `declare a variable but initialize it later`
+3. For when the `type cannot be inferred`
+
+**Example #1**
+
+```ts
+const parsedObject = JSON.parse('{ "name": "Peter" }');
+```
+
+* If you hover over `parsedObject` you will see that the type is `any`
+* If you hover over `.parse()` you will see that the return type is `any`
+
+```ts
+(method) JSON.parse(text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined): any
+```
+
+**Example #1 with annotation**
+
+```ts
+const parsedObject: { name: string } = JSON.parse('{ "name": "Peter" }');
+```
+
+**Example #2**
+
+If you hover over `response` you will see that the type is `any`
+
+```ts
+let response;
+response = JSON.parse('{ "name": "Peter" }')
+```
+
+**Example #2 with annotation**
+
+```ts
+let response: { name: string };
+response = JSON.parse('{ "name": "Peter" }')
+```
+
 ## Type Annotation or Type Assignment
 A label we add to tell TS what is the value type
 
@@ -26,17 +67,27 @@ age = '33';
 
 .. TS will complain with: `Type 'string' is not assignable to type 'number'.(2322)`
 
-And this is because we are initializing the variable with a value, so TS expects
-that its value TYPE is not going to change
+Since we are initializing the variable with a value,TS expects that the value TYPE is not going to change.
 
+---
 
-If we do this, it will not complain since we are escaping TS inference (and, the type of age is going to be any)
+Quick note:
+
+The difference between `let nickname = 'Peter'` and `const nickname = 'Peter'` is...
+* For `let` TS expects a type of `string` for the value.
+* For `const` TS expects that the value is going to be the string `Peter`
+
+---
+
+If we do the following... 
 
 ```ts
 let age;
 age = 33;
 age = '33';
 ```
+
+... it will not complain given that we are` escaping TS inference` (and, the type of age is going to be any).
 
 ### Const Assertion
 Can be used in any value

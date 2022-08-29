@@ -62,7 +62,8 @@ sayHi(undefined); // Value was undefined or null
 ```
 
 ## Void
-For when a function returns nothing. For example, logging to the console, using the alert() method, etc.
+
+For when a function does `NOT return`. For example, logging to the console, using the alert() window method, etc.
 
 ```ts
 const sayHi = (name: string): void => {
@@ -74,6 +75,7 @@ sayHi('Peter');
 ```
 
 ## Never
+
 For functions that will never "return anything". 
 Examples: `infinite loops` and `throwing errors`.
 
@@ -83,7 +85,7 @@ const formatError = (err: string): never => {
 }
 
 console.log(
-  formatError('ERROR404')
+  formatError('ERROR 404')
 )
 
 
@@ -108,7 +110,7 @@ something = 1;
 something = '1';
 something = () => 1;
 
-// this is OK with any
+// TS will not complain when accessing non existent properties if we use any
 something.property.to.access;
 ```
 

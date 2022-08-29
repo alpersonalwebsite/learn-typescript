@@ -11,7 +11,14 @@ const user: { name: string; age: number } = {
 
 For simple object literals, we can let TS infer its type.
 
-When we are destructuring, we will not need to annotate the value's type (TS will infer it for us), yet, if we want to do it, this is the proper way...
+```ts
+const user = {
+  name: 'Peter',
+  age: 35
+}
+```
+
+When we are **destructuring**, we will not need to annotate the value's type (TS will infer it for us), yet, if we want to do it, this is the proper way to do it:
 
 ```ts
 const user = {
@@ -173,24 +180,46 @@ Object is possibly 'undefined'.
 
 ## Array
 
-Examples:
+Remember: we are NOT using `inference` since we are declaring the variables first and then initializing them.
 
-1. Array of strings `string[]`: `let arr1: string[] = ['hi', 'hello']`
+1. Array of strings `string[]`: 
 
-2. Array of numbers `number[]`: `let arr2: number[] = [-2,0,1]`
+```ts
+let arr1: string[];
 
-3. Array containing SOME types with OR (`|`).
+arr1 = ['hi', 'hello'];
+```
+
+2. Array of numbers `number[]`:
+
+```ts
+let arr2: number[];
+
+arr2 = [-2,0,1];
+```
+
+3. Array containing mixed types with OR (`|`).
 
 ```ts
 let numbersAndStrings: (number | string)[] = [];
+
 numbersAndStrings = [1,'hi'];
 ```
 
-4. Array containing ANY type `any[]`: `let arr3: any[] = [1,true,'hi',[]]` Usually you want to avoid `any` since the idea is to set "strict" types.
+4. Array containing ANY type 
+(Usually you want to avoid `any` since the idea is to set "strict" types)
+
+```ts
+let arr3: any[];
+
+arr3 = [1,true,'hi',[]];
+```
 
 5. Array containing an `array of x-type` or multidimensional arrays.
 ```ts
-const numbers: number[][] = [
+let numbers: number[][];
+
+numbers = [
   [1,2,3],
   [4,5,6]
 ];
@@ -199,32 +228,24 @@ const numbers: number[][] = [
 6. Array containing an `object type`
 
 ```ts
-const users: { name: string, age: number }[] = [
+let users: { name: string, age: number }[];
+
+users = [
   { name: 'Peter', age: 33 },
   { name: 'Paul', age: 34 },
   { name: 'Mike', age: 35 }
-]
+];
 ```
 
-If you are declaring your variable (which is going to hold an array) and initializing it later, remember to properly annotate its type to avoid `TS` inferring `any`.
-
-Examples:
+When we pull elements from an `array` we are going to let TS infer its type:
 
 ```ts
-let array1: number[];
-
-array1 = [1,2,3];
+const peter = users[0].name;
 ```
 
-You should also do this if you are declaring and initializing your variables. 
+In the previous example, since TS knows that `users` is an array of object with 2 properties name (string) and age (number) it will infer that the type of `peter` is string.
 
-```ts
-let array1: number[] = [];
-
-array1 = [1,2,3];
-```
-
-Arrays support readonly:
+Arrays support `readonly`:
 
 ```ts
 type NonMutableArray = readonly number[];

@@ -75,6 +75,7 @@ const peter = new Person('Peter');
 
 ### Access modifier keywords
 We use these to set the visibility of properties (fields) and methods
+Supported for class properties and methods.
 
 * public -> everyone (default)
 * protected -> the own class and the subclasses
@@ -158,33 +159,83 @@ console.log(peter.age);
 
 ... TS will error with: `Property 'age' is private and only accessible within class 'Person'.`
 
-**ES2022** allows us to use a hash prefix `#` for private fields of a class.
+**ES2022** allows us to use a hash prefix `#` for private fields of a class in `JavaScipt`
 
-Instead of this...
+Quick note: public, private and protected access modifiers are not supported by `JS` but by `TS`
 
-```ts
-class Person {
-
-  private age: number;
-
-  constructor(name: string, age: number) {
-    this.age = age
-  }
-}
-```
-
-... you can do this:
+If you transpile (to `JS`) the following class with the `age` property marked as private...
 
 ```ts
 class Person {
 
-  #age: number;
+  private name: string;
 
-  constructor(name: string, age: number) {
-    this.#age = age
+  constructor(name: string) {
+    this.name = name
   }
 }
+
+console.log(new Person('Peter').name); // Peter
 ```
+
+... this is going to be the result:
+
+```js
+"use strict";
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+console.log(new Person('Peter').name); // Peter
+```
+
+The `property age` is accessible in `JavaScript`
+
+If we want to make it `private` for `JS` too, we can use `#` 
+
+```ts
+class Person {
+
+#name: string;
+
+  constructor(name: string) {
+    this.#name = name
+  }
+}
+console.log(new Person('Peter').#name);
+```
+
+Transpiled output:
+
+```js
+"use strict";
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+};
+var _Person_name;
+class Person {
+    constructor(name) {
+        _Person_name.set(this, void 0);
+        __classPrivateFieldSet(this, _Person_name, name, "f");
+    }
+}
+_Person_name = new WeakMap();
+console.log(new Person('Peter').);
+```
+
+If you run it:
+
+```js
+console.log(new Person('Peter').);                               
+SyntaxError: Unexpected token ')'
+```
+
+Check the last line `console.log(new Person('Peter').);`
+The property `#name` is excluded (in `ES2022`, it is uncluded and supported in `ESNext`)
 
 **Protected example**
 
@@ -210,7 +261,6 @@ class Person {
 const peter = new Person('Peter', 30);
 console.log(peter.age);
 // Property 'age' is protected and only accessible within class 'Person' and its subclasses.(2445)
-
 
 
 class Engineer extends Person {
@@ -246,6 +296,34 @@ console.log(engineer1.showAge()); // 33
   TODO:
     protected
 -->
+
+You can use `_` to mark a property or methods as `protected`, however, the transpiled JS is going to ignore it (at difference of what occurred with `#`)
+
+Example:
+
+```ts
+class Person {
+
+_name: string;
+
+  constructor(name: string) {
+    this._name = name
+  }
+}
+console.log(new Person('Peter')._name);
+```
+
+Transpiled code:
+
+```js
+"use strict";
+class Person {
+    constructor(name) {
+        this._name = name;
+    }
+}
+console.log(new Person('Peter')._name); // Peter
+```
 
 **Read only example**
 
@@ -321,6 +399,8 @@ class Person {
 
 class Engineer extends Person {
   constructor(name: string, private department: string) {
+
+    // If we overwrite the constructor we have to add super()
     super(name);
   }
 } 
@@ -351,7 +431,7 @@ console.log(engineer.getName);
   When are useful
 -->
 
-Important, abstract classes cannot be instantiated directly, if not, through a class that extends them.
+Important, abstract classes cannot be instantiated directly, if not through a class that extends them.
 
 If you try this `const paul = new Person('Paul');` TS will complain: `Cannot create an instance of an abstract class.`
 This is because abstract classes have missing features, like in our case, the implementation of `logName()`

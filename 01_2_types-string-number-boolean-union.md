@@ -1,11 +1,6 @@
 
 # Types: String, Number, Boolean and Union Types
 
-<!-- 
-The core primitive types in TypeScript are all lowercase!
-Examples; string, number, boolean, undefined, null, symbol, bigint
--->
-
 ## String
 
 ```ts
@@ -14,7 +9,7 @@ name = 'Peter';
 ```
 
 ## Number
-Including ALL integers (-33, 33) and floats (3.3)
+Including ALL integers (-33, 33), float (3.3), hex (0xffff), binary (0b10101) and octal(0o671)
 
 ```ts
 let age: number;

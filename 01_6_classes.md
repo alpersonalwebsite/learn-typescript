@@ -470,15 +470,94 @@ Note that both, the class and the method are prefixed with the `abstract` keywor
   }
 ```
 
-### Static properties and methods
-Allow us to add properties and methods to classes which are not accessed on an instance of a class, if not, on the class itself. Particularly useful for utility functions.
-Example: `Math` (we don't need to instantiate a new instance and call the methods on that instance)
+### Static members
+(Members are: properties, constructor and methods)
+
+<!-- Allow us to add properties and methods to classes which are not accessed on an instance of a class, if not, on the class itself. Particularly useful for utility functions.
+Example: `Math` (we don't need to instantiate a new instance and call the methods on that instance) -->
 
 <!-- 
 TODO 
   Check more of static properties and methods
   Add static example
 -->
+
+In the following example we are instantiating `2 objects` with the class `User`.
+
+`Each object` is going to have **ALL** the properties and methods defined in `User` class.
+
+```ts
+class User {
+
+  message = `Hi!`;
+
+  greet(): string {
+    return this.message
+  }
+}
+
+const user1 = new User();
+const user2 = new User();
+
+
+console.log(user1.greet()); // Hi!
+console.log(user2.greet()); // Hi!
+```
+
+Snippet to quick check properties and methods:
+
+```ts
+console.log('message' in user1, 'greet' in user1); // true,  true 
+console.log('message' in user2, 'greet' in user2); // true,  true 
+```
+
+We can change this behavior making the objects use the properties and methods of the class itself with the `static` keyword.
+
+```ts
+class User {
+
+  static message = `Hi!`;
+
+  static greet(): string {
+    return this.message
+  }
+}
+
+const user1 = new User();
+const user2 = new User();
+```
+
+Now, if we check for those properties and methods...
+
+```ts
+console.log('message' in user1, 'greet' in user1); // false,  false 
+console.log('message' in user2, 'greet' in user2); // false,  false 
+```
+
+Since those members only exist in the class itself (`User`), we can access through the class:
+
+```ts
+console.log(User.greet()); // Hi!
+```
+
+And in this case, we don't need to instantiate.
+
+Full example:
+
+```ts
+class User {
+
+  static message = `Hi!`;
+
+  static greet(): string {
+    return this.message
+  }
+}
+
+
+console.log(User.greet()); // Hi!
+```
+
 
 ### Private Constructors
 

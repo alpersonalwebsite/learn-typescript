@@ -23,6 +23,16 @@ function logResultToConsole(result: number): void {
 logResultToConsole(2);
 ```
 
+Same example but with `arrow function`
+
+```ts
+const logResultToConsole: (r: number) => void = (result: number) => {
+  console.log(`The result is ${result}`);
+}
+
+logResultToConsole(2);
+```
+
 ### Void and return extended
 
 As we saw, we use `void` when we don't want to return. If in the previous snippet we add `return 1`...
@@ -40,7 +50,7 @@ function logResultToConsole(result: number): void {
 Type 'number' is not assignable to type 'void'.
 ```
 
-However, we could return nothing and It would work (the question would be why would we like to return nothing)
+However, we could return nothing and it would work.
 
 ```ts
   console.log(`The result is ${result}`);
@@ -48,7 +58,7 @@ However, we could return nothing and It would work (the question would be why wo
 }
 ```
 
-Now... What happens if we pass a `callback` to the function, setting its return type as `void` and `return something` inside the callback.
+Now... What happens if we pass a `callback` to the function, setting its return type to `void` and `return something` inside the callback.
 
 <!-- 
 TODO: Why?

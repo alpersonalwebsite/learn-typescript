@@ -35,6 +35,16 @@ History
 
 TS is static.
 
+<!-- 
+## Primitive and Reference types
+
+Primitive types in TypeScript.
+string, number, boolean, undefined, null, symbol, bigint, void
+
+Reference types
+object, function, class, array
+-->
+
 ## Setting up our environment
 
 We are going to install `typescript`, `ts-node` (TS execution and REPL for node.js, with source map support) and `@types/node` (type definitions for Node.js)
@@ -104,7 +114,7 @@ Sample result:
   }
 ```
 
-Note: Here I'm adding a `dev` script which will *watch for changes in our files* and recompile.
+Note: Here I'm adding a `dev` script which will *watch for changes in our files* and re-compile.
 
 Create the root dir `src` and a dummy file:
 

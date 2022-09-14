@@ -1,6 +1,14 @@
 
 # Type Annotation and Type Inference
 
+---
+
+* [Type Annotation or Type Assignment](#type-annotation-or-type-assignment)
+* [Type Inference](#type-inference)
+  + [Const Assertion](#const-assertion)
+
+---
+
 **Preliminar note:**
 Usually you are going to let TS infer the type. However, there are cases where you want to add an annotation:
 1. For `functions that return any` (example: `JSON.parse()`)

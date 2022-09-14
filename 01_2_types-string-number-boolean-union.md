@@ -1,6 +1,17 @@
 
 # Types: String, Number, Boolean and Union Types
 
+---
+
+* [String](#string)
+* [Number](#number)
+* [Boolean](#boolean)
+* [Union Types (aka, OR)](#union-types--aka--or-)
+  + [Discriminated unions](#discriminated-unions)
+* [Intersection Types (aka, AND)](#intersection-types--aka--and-)
+
+---
+
 ## String
 
 ```ts
@@ -9,7 +20,7 @@ name = 'Peter';
 ```
 
 ## Number
-Including ALL integers (-33, 33), float (3.3), hex (0xffff), binary (0b10101) and octal(0o671)
+Including ALL integers (-33, 33) and float (3.3)
 
 ```ts
 let age: number;

@@ -4,6 +4,18 @@
   TODO: Difference null and undefined
 -->
 
+---
+
+* [Null](#null)
+* [Undefined](#undefined)
+* [Void](#void)
+* [Never](#never)
+* [Any](#any)
+* [Unknown](#unknown)
+
+
+---
+
 ## Null
 For when a variable is not yet declared 
 

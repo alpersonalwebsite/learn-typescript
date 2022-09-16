@@ -1,6 +1,20 @@
 # Types: Object, Array, Enum, Tuple and Set
 
-## Object (object literal)
+---
+
+  * [Object (object literal)](#object)
+    + [Optional modifier (?)](#optional-modifier)
+    + [Non-null assertion operator (!)](#non-null-assertion-operator)
+    + [Assertion functions](#assertion-functions)
+  * [Array](#array)
+  * [Enum](#enum)
+  * [Tuple](#tuple)
+  * [Set](#set)
+
+---
+
+## Object 
+(object literal)
 
 ```ts
 const user: { name: string; age: number } = {
@@ -29,7 +43,8 @@ const user = {
 const { name, age } : { name: string; age: number } = user;
 ```
 
-### Optional modifier (?)
+### Optional modifier 
+(aka, ?)
 
 For optional properties we can use `property?`
 
@@ -40,7 +55,8 @@ const user: { name: string; age: number; nickname?: string } = {
 }
 ```
 
-### Non-null assertion operator (!)
+### Non-null assertion operator
+(aka, !)
 
 In the following example we declare a variable and sets its type as a string.
 Then, we have a function that generates a random character.

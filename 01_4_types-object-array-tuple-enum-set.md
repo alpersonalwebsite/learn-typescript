@@ -2,14 +2,14 @@
 
 ---
 
-  * [Object (object literal)](#object)
-    + [Optional modifier (?)](#optional-modifier)
-    + [Non-null assertion operator (!)](#non-null-assertion-operator)
-    + [Assertion functions](#assertion-functions)
-  * [Array](#array)
-  * [Enum](#enum)
-  * [Tuple](#tuple)
-  * [Set](#set)
+* [Object (object literal)](#object)
+  + [Optional modifier (?)](#optional-modifier)
+  + [Non-null assertion operator (!)](#non-null-assertion-operator)
+  + [Assertion functions](#assertion-functions)
+* [Array](#array)
+* [Enum](#enum)
+* [Tuple](#tuple)
+* [Set](#set)
 
 ---
 

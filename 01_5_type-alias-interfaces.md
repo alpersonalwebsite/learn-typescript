@@ -1,5 +1,18 @@
 # Type Alias and Interfaces
 
+---
+* [Type Alias](#type-alias)
+  + [Implements](#implements)
+  + [Utility types](#utility-types)
+    - [Readonly](#readonly)
+    - [Required](#required)
+    - [Record](#record)
+    - [Partial](#partial)
+* [Interfaces](#interfaces)
+  + [Extends](#extends)
+  + [Implements](#implements-1)
+---
+
 For both, the convention is to use TitleCase.
 Both, Type Alias and Interfaces support `readonly` properties (value cannot be changed after initialized)
 
@@ -73,7 +86,8 @@ new Engineer().eat(); // Eating
 
 ### Utility types
 
-#### Readonly<T>
+#### Readonly
+(Readonly<T>)
 
 ```ts
 type User = {
@@ -93,13 +107,15 @@ If you try to modify the value of `age`, TS will error with:
 Cannot assign to 'name' because it is a read-only property.
 ```
 
-#### Required<T>
+#### Required
+(Required<T>)
 
 <!-- 
   TODO:
 -->
 
-#### Record<K,V>
+#### Record
+(Record<K,V>)
 
 <!--
   TODO: 
@@ -124,7 +140,8 @@ const users: User = {
 }
 ```
 
-#### Partial<T>
+#### Partial
+(Partial<T>)
 
 In the followinbg example, we are updating a user just passing the properties that will be used.
 (This plays pretty well at the time of updating state)

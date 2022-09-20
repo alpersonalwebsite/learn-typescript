@@ -6,9 +6,9 @@
 * [String](#string)
 * [Number](#number)
 * [Boolean](#boolean)
-* [Union Types (aka, OR)](#union-types--aka--or-)
+* [Union Types (aka, OR)](#union-types)
   + [Discriminated unions](#discriminated-unions)
-* [Intersection Types (aka, AND)](#intersection-types--aka--and-)
+* [Intersection Types (aka, AND)](#intersection-types)
 
 ---
 
@@ -34,7 +34,8 @@ let completed: boolean;
 completed = false;
 ```
 
-## Union Types (aka, OR)
+## Union Types 
+(aka, OR)
 When more than one type can be used.
 
 ```ts
@@ -112,7 +113,8 @@ move(cat); // walking
 move(fish); // swimming
 ```
 
-## Intersection Types (aka, AND)
+## Intersection Types 
+(aka, AND)
 
 ```ts
 let user: { name: string; age: number } & { username: string }

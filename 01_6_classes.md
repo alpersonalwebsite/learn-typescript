@@ -1,5 +1,17 @@
 # Classes and Inheritance
 
+---
+
+* [Classes](#classes)
+  + [Access modifier keywords](#access-modifier-keywords)
+  + [Param properties](#param-properties)
+* [Inheritance](#inheritance)
+  + [Abstract classes](#abstract-classes)
+  + [Static members](#static-members)
+  + [Private Constructors](#private-constructors)
+
+---
+
 ## Classes
 
 <!-- 

@@ -622,3 +622,58 @@ console.log(paul);
 //   "department": "frontend"
 // } 
 ```
+
+
+**Note about Interfaces and Abstract classes**
+
+I know this sections covers a lot, however, I'd be happy if you can remember at least the following:
+
+1. Interfaces are blueprints of objects. 
+  You CANNOT instantiate an Interface since there are no implementations details. 
+  You CAN describe the object.
+
+2. Abstract classes
+  You CANNOT instantiate an abstract class.
+  You CAN sublclass it (class Dog extends Animal)
+  It can have or not abstract methods
+
+
+```ts
+  interface IAnimal {
+  eat(): void
+}
+
+abstract class Animal {
+  eat() {
+    console.log(`Eating`);
+  }
+}
+
+
+class Cat implements IAnimal {
+  // we need to implement the method eat() since Interfaces dont support implementation details
+
+  // Compiler error: Class 'Cat' incorrectly implements interface 'IAnimal'.
+  // Property 'eat' is missing in type 'Cat' but required in type 'IAnimal'.
+}
+
+class Dog extends Animal {
+
+}
+
+let bulldog = new Dog();
+bulldog.eat();
+// "Eating" 
+
+let siamese = new Cat();
+siamese.eat();
+// Compiler error: Property 'eat' does not exist on type 'Cat'.
+// Runtime error: siamese.eat is not a function 
+
+
+// You cannot instantiate an Interface 
+// You cannot instantiate an abstract class directly. Example:
+
+let bird = new Animal();
+// Compiler error: Cannot create an instance of an abstract class.
+```

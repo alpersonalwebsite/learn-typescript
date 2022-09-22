@@ -1,5 +1,16 @@
 # Functions
 
+---
+
+* [Void](#void)
+  + [Void and return extended](#void-and-return-extended)
+* [Function types](#function-types)
+* [Function Overloading](#function-overloading)
+* [this parameter](#this-parameter)
+* [Assertion functions](#assertion-functions)
+
+---
+
 In JS the return value of functions that don't return is `undefined`
 
 ```js
@@ -274,4 +285,65 @@ chair.greet()
 <!-- 
   TODO:
     this type
+-->
+
+## Assertion functions
+Imagine we are making a network request and we have a function that checks if we receive the proper response or not (in this case, null).
+
+If the response is an `array of User` we should be able to access the first element and its name property.
+However, no matter the case, TS will error with `Object is possibly 'null'.`.
+This is because TS doesn't do an implicit assertion checking.
+
+```ts
+type User = {
+  name: string
+}
+
+function assertUser(condition: unknown, message: string) {
+  if (!condition) throw new Error(message);
+}
+
+function getUsers(): (null | User[]) {
+  const response = [null, [ { name: 'Peter'}, { name: 'Wendy' } ] ];
+  return response[Math.floor(Math.random() * ((response.length) - 0) + 0)];
+}
+
+const users = getUsers();
+
+assertUser(users != null, 'Something went wrong!');
+
+
+console.log(users[0].name);
+// Object is possibly 'null'.
+```
+
+However, we can use an `assertion function` to do `explicit assertion checking`
+For this, we add to our assertion function a return type of `asserts parameter`. Doing that, we are telling the compiler that the function will only return if the condition is `true` (which, in our case would be if users is not null)
+
+```ts
+type User = {
+  name: string
+}
+
+function assertUser(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+function getUsers(): (null | User[]) {
+  const response = [null, [ { name: 'Peter'}, { name: 'Wendy' } ] ];
+  return response[Math.floor(Math.random() * ((response.length) - 0) + 0)];
+}
+
+const users = getUsers();
+
+assertUser(users != null, 'Something went wrong!');
+
+
+console.log(users[0].name);
+
+```
+
+<!-- 
+  TODO:
+  check `asserts parameter is Type` example: `asserts vale is Date`
 -->

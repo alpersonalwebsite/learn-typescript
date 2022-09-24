@@ -1,5 +1,13 @@
 # Type Assertions, Type Casting and Type Declaration
 
+---
+
+* [Type Assertions](#type-assertions)
+* [Type Casting or Type Coercion](#type-casting-or-type-coercion)
+* [Type Declarations](#type-declarations)
+
+---
+
 ## Type Assertions
 
 <!--

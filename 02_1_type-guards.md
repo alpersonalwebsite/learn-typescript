@@ -4,6 +4,12 @@
 ODO: What are
 -->
 
+---
+
+* [User defined Type Guards](#user-defined-type-guards)
+
+---
+
 ```ts
 let something: unknown
 something = {};

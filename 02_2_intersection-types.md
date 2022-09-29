@@ -1,6 +1,13 @@
 # Intersection Types
 Or how to combine types.
 
+---
+
+* [Type example with objects](#type-example-with-objects)
+* [Interface example with objects](#interface-example-with-objects)
+
+---
+
 `Interfaces` only support `objects`, so if you need to combine other types than objects, you will need `types`
 
 ## Type example with objects

@@ -5,6 +5,12 @@
   Why to use
 -->
 
+---
+
+* [Generic constraints](#generic-constraints)
+
+---
+
 Let's say that we have a `Queue` class that implements a Queue data Structure.
 
 ```ts
